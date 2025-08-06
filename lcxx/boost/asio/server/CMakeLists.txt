@@ -1,5 +1,19 @@
+project(asio_server VERSION ${CMAKE_PROJECT_VERSION} DESCRIPTION "asio server example" LANGUAGES CXX)
+
+set(SYNC_SERVER_NAME sync_server)
+
 set(SYNC_SERVER_SRC sync_server.cc)
 
-add_executable(sync_server ${SYNC_SERVER_SRC})
+add_executable(${SYNC_SERVER_NAME} ${SYNC_SERVER_SRC})
 
-target_link_libraries(sync_server boost::boost)
+target_link_libraries(${SYNC_SERVER_NAME} boost::boost lcxx_utils)
+
+target_compile_definitions(
+        ${SYNC_SERVER_NAME}
+        PUBLIC
+        SYNC_SERVER_VERSION="${CMAKE_PROJECT_VERSION}"
+        SYNC_SERVER_VERSION_MAJOR=${CMAKE_PROJECT_VERSION_MAJOR}
+        SYNC_SERVER_VERSION_MINOR=${CMAKE_PROJECT_VERSION_MINOR}
+        SYNC_SERVER_VERSION_PATCH=${CMAKE_PROJECT_VERSION_PATCH}
+        SYNC_SERVER_VERSION_TWEAK=${CMAKE_PROJECT_VERSION_TWEAK}
+)
