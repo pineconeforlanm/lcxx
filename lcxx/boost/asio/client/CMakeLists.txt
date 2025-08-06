@@ -1,6 +1,19 @@
+project(asio_client VERSION ${CMAKE_PROJECT_VERSION} DESCRIPTION "asio client example" LANGUAGES CXX)
+
+set(SYNC_CLIENT_NAME sync_client)
 
 set(SYNC_CLIENT_SRC sync_client.cc)
 
-add_executable(sync_client ${SYNC_CLIENT_SRC})
+add_executable(${SYNC_CLIENT_NAME} ${SYNC_CLIENT_SRC})
 
-target_link_libraries(sync_client boost::boost)
+target_link_libraries(${SYNC_CLIENT_NAME} boost::boost)
+
+target_compile_definitions(
+        ${SYNC_CLIENT_NAME}
+        PUBLIC
+        SYNC_CLIENT_VERSION="${CMAKE_PROJECT_VERSION}"
+        SYNC_CLIENT_VERSION_MAJOR=${CMAKE_PROJECT_VERSION_MAJOR}
+        SYNC_CLIENT_VERSION_MINOR=${CMAKE_PROJECT_VERSION_MINOR}
+        SYNC_CLIENT_VERSION_PATCH=${CMAKE_PROJECT_VERSION_PATCH}
+        SYNC_CLIENT_VERSION_TWEAK=${CMAKE_PROJECT_VERSION_TWEAK}
+)
