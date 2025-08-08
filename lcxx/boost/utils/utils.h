@@ -1,9 +1,9 @@
-export module lcxx.utils;  // 使用更明确的模块名，避免与其他模块冲突
+#pragma once
 
-import std;
+#include <string_view>
 
-export namespace lcxx::utils {
-namespace boost {  // 重命名子命名空间
+namespace lcxx::utils {
+namespace boost {
 auto version() -> std::size_t;
 auto lib_version() -> std::string_view;
 }  // namespace boost
@@ -13,4 +13,9 @@ auto major_version() -> std::size_t;
 auto minor_version() -> std::size_t;
 auto patch_version() -> std::size_t;
 auto tweak_version() -> std::size_t;
+
+namespace log {
+auto init() -> void;
+}
+
 }  // namespace lcxx::utils

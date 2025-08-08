@@ -1,19 +1,25 @@
 project(lcxx_utils VERSION ${CMAKE_PROJECT_VERSION} DESCRIPTION "lcxx utils" LANGUAGES CXX)
 
+set(LCXX_BASE_NAME lcxx_base)
 set(LCXX_UTILS_NAME lcxx_utils)
 
-set(LCXX_UTILS_SRC utils.cc)
+file(GLOB_RECURSE LCXX_UTILS_SRC "./*.cc")
 
-add_library(${LCXX_UTILS_NAME} SHARED utils.cc)
+add_library(${LCXX_UTILS_NAME} SHARED)
 
 target_sources(
         ${LCXX_UTILS_NAME}
-        PUBLIC
-        FILE_SET cxx_modules TYPE CXX_MODULES
-        FILES utils.ccm
+        PRIVATE
+        ${LCXX_UTILS_SRC}
 )
 
-target_link_libraries(${LCXX_UTILS_NAME} boost::boost)
+target_include_directories(
+        ${LCXX_UTILS_NAME}
+        PUBLIC
+        "${CMAKE_SOURCE_DIR}/lcxx/boost"
+)
+
+target_link_libraries(${LCXX_UTILS_NAME} PUBLIC stdc++exp boost::boost)
 
 target_compile_definitions(
         ${LCXX_UTILS_NAME}

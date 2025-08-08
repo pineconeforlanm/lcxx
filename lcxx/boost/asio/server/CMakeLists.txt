@@ -6,7 +6,13 @@ set(SYNC_SERVER_SRC sync_server.cc)
 
 add_executable(${SYNC_SERVER_NAME} ${SYNC_SERVER_SRC})
 
-target_link_libraries(${SYNC_SERVER_NAME} boost::boost lcxx_utils)
+target_include_directories(
+        ${SYNC_SERVER_NAME}
+        PUBLIC
+        ${CMAKE_SOURCE_DIR}/lcxx/boost/utils
+)
+
+target_link_libraries(${SYNC_SERVER_NAME} lcxx_utils stdc++exp boost::boost)
 
 target_compile_definitions(
         ${SYNC_SERVER_NAME}
