@@ -1,0 +1,60 @@
+module;
+
+#include <cxxabi.h>
+#include <sys/syscall.h>
+#include <unistd.h>
+
+#include <ylt/easylog.hpp>
+
+export module lcxx.base.utils;  // 使用更明确的模块名，避免与其他模块冲突
+
+import std;
+
+export namespace lcxx::base::utils {
+
+auto version() -> std::string_view;
+auto major_version() -> std::size_t;
+auto minor_version() -> std::size_t;
+auto patch_version() -> std::size_t;
+auto tweak_version() -> std::size_t;
+
+class Copyable {
+ protected:
+  Copyable() = default;
+  ~Copyable() = default;
+};
+
+class Noncopyable {
+ public:
+  Noncopyable(const Noncopyable &) = delete;
+  void operator=(const Noncopyable &) = delete;
+
+ protected:
+  Noncopyable() = default;
+  ~Noncopyable() = default;
+};
+
+inline auto get_thread_id() -> pid_t;
+
+inline auto get_host_name() -> std::optional<std::string_view>;
+
+template <class T>
+auto type_to_name() -> std::string_view {
+  static const auto s_name = std::string_view{abi::__cxa_demangle(typeid(T).name(), nullptr, nullptr, nullptr)};
+  return s_name;
+}
+
+namespace boost {
+auto version() -> std::size_t;
+auto lib_version() -> std::string_view;
+}  // namespace boost
+
+namespace log {
+auto init() -> void;
+}  // namespace log
+
+namespace rpc {
+auto echo(std::string_view data) -> std::string_view;
+}  // namespace rpc
+
+}  // namespace lcxx::base::utils
