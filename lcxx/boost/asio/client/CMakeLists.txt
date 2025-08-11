@@ -9,10 +9,10 @@ add_executable(${SYNC_CLIENT_NAME} ${SYNC_CLIENT_SRC})
 target_include_directories(
         ${SYNC_CLIENT_NAME}
         PUBLIC
-        ${CMAKE_SOURCE_DIR}/lcxx/boost/utils
+        ${CMAKE_SOURCE_DIR}/lcxx/base/utils
 )
 
-target_link_libraries(${SYNC_CLIENT_NAME} lcxx_utils stdc++exp boost::boost)
+target_link_libraries(${SYNC_CLIENT_NAME} lcxx_base stdc++exp boost::boost)
 
 target_compile_definitions(
         ${SYNC_CLIENT_NAME}

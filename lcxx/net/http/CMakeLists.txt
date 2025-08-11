@@ -1,21 +1,23 @@
-project(asio_server VERSION ${CMAKE_PROJECT_VERSION} DESCRIPTION "asio server example" LANGUAGES CXX)
+find_package(Boost REQUIRED)
 
-set(SYNC_SERVER_NAME sync_server)
+project(coro_http VERSION ${CMAKE_PROJECT_VERSION} DESCRIPTION "asio server example" LANGUAGES CXX)
 
-set(SYNC_SERVER_SRC sync_server.cc)
+set(CORO_SERVER_NAME coro_http_server)
 
-add_executable(${SYNC_SERVER_NAME} ${SYNC_SERVER_SRC})
+set(CORO_SERVER_SRC coro_http.cc)
+
+add_executable(${CORO_SERVER_NAME} ${CORO_SERVER_SRC})
 
 target_include_directories(
-        ${SYNC_SERVER_NAME}
+        ${CORO_SERVER_NAME}
         PUBLIC
         ${CMAKE_SOURCE_DIR}/lcxx/base/utils
 )
 
-target_link_libraries(${SYNC_SERVER_NAME} lcxx_base stdc++exp boost::boost)
+target_link_libraries(${CORO_SERVER_NAME} lcxx_base stdc++exp boost::boost)
 
 target_compile_definitions(
-        ${SYNC_SERVER_NAME}
+        ${CORO_SERVER_NAME}
         PUBLIC
         SYNC_SERVER_VERSION="${CMAKE_PROJECT_VERSION}"
         SYNC_SERVER_VERSION_MAJOR=${CMAKE_PROJECT_VERSION_MAJOR}

@@ -1,15 +1,12 @@
 //
 // Created by lanm on 2025/8/6.
 //
-#include <utils/utils.h>
 
-#include <array>
 #include <boost/asio.hpp>
-#include <cstdlib>
-#include <iostream>
-#include <memory>
-#include <set>
 #include <ylt/easylog.hpp>
+
+import lcxx.base.utils;
+import std;
 namespace {
 
 using SocketPtr = std::shared_ptr<boost::asio::ip::tcp::socket>;
@@ -56,7 +53,7 @@ auto server(boost::asio::io_context& ioctx, const std::size_t port) -> void {
   auto acceptor =
       boost::asio::ip::tcp::acceptor(ioctx, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port));
   ELOGI << "Listening on port " << port;
-  while (is_exit.load()) {
+  while (!is_exit.load()) {
     auto socket = std::make_shared<boost::asio::ip::tcp::socket>(ioctx);
     acceptor.accept(*socket);
     ELOGI << "Accepted connection from " << socket->remote_endpoint().address().to_string();
@@ -67,7 +64,7 @@ auto server(boost::asio::io_context& ioctx, const std::size_t port) -> void {
 
 auto sync_server_main([[maybe_unused]] const int argc, [[maybe_unused]] char** argv) -> int {
   constexpr auto kLocalPort = 12345;
-  lcxx::utils::log::init();
+  lcxx::base::utils::log::init();
   auto ioctx = boost::asio::io_context{};
 
   auto signals = boost::asio::signal_set(ioctx, SIGINT, SIGTERM);
@@ -95,7 +92,7 @@ auto main(const int argc, char** argv) -> int {
   try {
     [[maybe_unused]] auto result = real_main(argc, argv);
   } catch (const std::exception& exp) {
-    ELOGF << "Main Exception:" << exp.what() << '\n';
+    ELOGE << "Main Exception:" << exp.what() << '\n';
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;

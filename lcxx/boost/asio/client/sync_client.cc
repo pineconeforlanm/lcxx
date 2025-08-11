@@ -1,19 +1,16 @@
 //
 // Created by lanm on 2025/8/6.
 //
-#include <utils/utils.h>
-
-#include <array>
 #include <boost/asio.hpp>
-#include <cstdlib>
-#include <iostream>
-#include <string_view>
 #include <ylt/easylog.hpp>
+
+import lcxx.base.utils;
+import std;
 
 namespace {
 
 auto sync_client_main([[maybe_unused]] const int argc, [[maybe_unused]] char** argv) -> int {
-  lcxx::utils::log::init();
+  lcxx::base::utils::log::init();
 
   constexpr int kMaxBufferSize = 1024;
   auto ioctx = boost::asio::io_context{};
@@ -42,7 +39,7 @@ auto main(const int argc, char** argv) -> int {
   try {
     [[maybe_unused]] auto result = real_main(argc, argv);
   } catch (const std::exception& exp) {
-    ELOGF << "Main Exception:" << exp.what() << '\n';
+    ELOGE << "Main Exception:" << exp.what() << '\n';
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
