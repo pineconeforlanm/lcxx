@@ -2,5 +2,7 @@
 # To keep your changes, remove these comment lines, but the plugin won't be able to modify your requirements
 
 requirements:
+  - "sqlite_orm/1.9.1"
+  - "cli11/2.5.0"
   - "yaml-cpp/0.8.0"
   - "boost/1.88.0"

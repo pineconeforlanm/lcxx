@@ -1,4 +1,7 @@
 add_subdirectory(base)
 add_subdirectory(boost)
+add_subdirectory(CLI11)
+add_subdirectory(database)
+add_subdirectory(hook)
 add_subdirectory(net)
 add_subdirectory(ylt)

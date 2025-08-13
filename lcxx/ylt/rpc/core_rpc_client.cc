@@ -78,12 +78,12 @@ class Statistics {
     avg_ = static_cast<double>(sum_) / static_cast<double>(++counter);
   }
 
-  auto get_max() const -> uint64_t { return max_; }
-  auto get_min() const -> uint64_t { return min_; }
-  auto get_sum() const -> uint64_t { return sum_; }
-  auto get_avg() const -> double { return avg_; }
+  [[maybe_unused]] auto get_max() const -> uint64_t { return max_; }
+  [[maybe_unused]] auto get_min() const -> uint64_t { return min_; }
+  [[maybe_unused]] auto get_sum() const -> uint64_t { return sum_; }
+  [[maybe_unused]] auto get_avg() const -> double { return avg_; }
 
-  auto show_stats() const -> void {
+  [[maybe_unused]] auto show_stats() const -> void {
     ELOGI << "echo times [ " << send_times << "], overflow 1ms times [" << overflow_ << "] Max: " << max_
               << "us, Min: " << min_ << "us, Sum: " << sum_ << "us, Avg: " << avg_ << "us\n";
   }
